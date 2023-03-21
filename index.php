@@ -1,11 +1,13 @@
 <!-- PHP -->
 <?php
-    include_once("./functions.php"); //include il file "functions.php"
-    $password = ""; //password
+    session_start(); //inizio la sessione
+    include_once("./functions.php"); //includo il file "functions.php"
+    $_SESSION['password'] = ""; //password
     //Se il form viene inviato
     if (isset($_GET['submit'])) {
         $lengthPassword = intval($_GET['lengthPassword']); //salvo la lunghezza della password
-        $password = generatePassword($lengthPassword); //genero una password
+        $_SESSION['password'] = generatePassword($lengthPassword); //genero una password
+        header("Location: ./result.php"); //indirizzamento verso "result.php"
     }
 ?>
 <!DOCTYPE html>
@@ -38,7 +40,7 @@
             <div class="result p-4 mt-4 bg-info rounded">
                 <!-- Sottotitolo -->
                 <h3 class="text-primary-emphasis fs-4">
-                    La tua password è: <?= $password; ?>
+                    La tua password è: <?= $_SESSION['password']; ?>
                 </h3>
             </div>
             <?php
