@@ -1,3 +1,13 @@
+<!-- PHP -->
+<?php
+    include_once("./functions.php"); //include il file "functions.php"
+    $password = ""; //password
+    //Se il form viene inviato
+    if (isset($_GET['submit'])) {
+        $lengthPassword = intval($_GET['lengthPassword']); //salvo la lunghezza della password
+        $password = generatePassword($lengthPassword); //genero una password
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,14 +29,29 @@
                 <!-- Sottotitolo -->
                 <h2 class="text-white">Genera un password sicura</h2>
             </div>
+            <!-- PHP -->
+            <?php
+            //Se il form viene inviato
+            if (isset($_GET['submit'])) {
+            ?> 
+            <!-- Risultato -->
+            <div class="result p-4 mt-4 bg-info rounded">
+                <!-- Sottotitolo -->
+                <h3 class="text-primary-emphasis fs-4">
+                    La tua password è: <?= $password; ?>
+                </h3>
+            </div>
+            <?php
+            }
+            ?>
             <!-- Informazioni -->
-            <div class="informations bg-white p-4 mt-4">
+            <div class="informations bg-white p-4 mt-4 rounded">
                 <!-- Form -->
                 <form action="./index.php" method="GET">
                     <!-- Lunghezza password -->
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Lunghezza password:</label>
-                        <input type="number" name="lengthPassword" class="form-control" id="exampleFormControlInput1">
+                        <input type="number" min="1" name="lengthPassword" class="form-control" id="exampleFormControlInput1">
                     </div>
                     <!-- Submit -->
                     <button type="submit" name="submit" value="1" class="btn btn-primary">Invia</button>
